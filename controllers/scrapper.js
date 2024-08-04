@@ -8,6 +8,7 @@ const schema = joi.object({
   youTubeChannel: joi.string().required(),
   instagram: joi.string().required(),
   facebook: joi.string().required(),
+  ytType: joi.string().required(),
   // description: joi.string().required(),
   // features: joi.array().items(joi.string()).min(3).required(),
   // images: joi.array().items(joi.string()).min(1).required(),
