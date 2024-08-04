@@ -20,7 +20,17 @@ const schema = joi.object({
 export async function scrapper(req, res, next) {
   try {
     const data = await schema.validateAsync(req.body);
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--single-process",
+        "--no-zygote"
+      ],
+      executablePath: process.env.NODE_ENV === "production"
+      ? process.env.PUPPETEER_EXECUTABEL_PATH
+      : puppeteer.executablePath()
+    });
 
     const [youTube, insta, facebook] = await Promise.allSettled([
       getYouTube(browser, data),
